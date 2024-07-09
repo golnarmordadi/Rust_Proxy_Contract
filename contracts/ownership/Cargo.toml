@@ -1,0 +1,32 @@
+[package]
+name = "ownership"
+version.workspace = true
+authors = ["Golnar Mordadi <golnar@soarrobotics.com>"]
+description = "Implementation of an proxy contract using a ownerships"
+repository = "https://github.com/golnarmordadi/Rust_Proxy_Contract"
+homepage = "https://github.com/golnarmordadi"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+# use library feature to disable all instantiate/execute/query exports
+library = []
+test-utils = []
+
+[dependencies]
+cosmwasm-schema = { workspace = true }
+cw-utils = { workspace = true }
+ows = { workspace = true }
+cw2 = { workspace = true }
+cosmwasm-std = { workspace = true, features = ["staking"] }
+cw-storage-plus = { workspace = true }
+schemars = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+anyhow = "1"
+assert_matches = "1"
+cw-multi-test = { workspace = true }
+derivative = "2"
