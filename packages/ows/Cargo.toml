@@ -1,0 +1,12 @@
+[package]
+name = "ows"
+version.workspace = true
+authors = ["Golnar Mordadi <golnar@soarrobotics.com>"]
+description = "Definition and types for the contract interface"
+repository = "https://github.com/golnarmordadi/Rust_Proxy_Contract"
+
+[dependencies]
+cosmwasm-schema = { workspace = true }
+cosmwasm-std = { workspace = true }
+schemars = { workspace = true }
+serde = { workspace = true }
