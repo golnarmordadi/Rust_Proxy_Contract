@@ -1,8 +1,10 @@
 # Ownership
 
-This may be the simplest implementation a ownership of addresses.
+This may be the simplest implementation of ownership of addresses.
 It contains a set of admins that are defined upon creation.
 Any of those admins may `Execute` any message via the contract,
+
+## Customizability
 
 To make this slightly less minimalistic, you can allow the admin set
 to be mutable or immutable. If it is mutable, then any admin may
@@ -20,13 +22,21 @@ fixed in `handle`. You can import this contract and just redefine your `handle`
 function, setting a different parameter to `ExecuteMsg`, and you can produce
 a chain-specific message.
 
-## Running this contract
+## Usage
+
+## Running the Contract
 
 You will need Rust 1.44.1+ with `wasm32-unknown-unknown` target installed.
+
+### Unit Tests
 
 You can run unit tests on this via:
 
 `cargo test`
+
+### Compiling to WASM
+
+For development:
 
 Once you are happy with the content, you can compile it to wasm via:
 
@@ -36,6 +46,8 @@ cp ../../target/wasm32-unknown-unknown/release/ownership.wasm .
 ls -l ownership.wasm
 sha256sum ownership.wasm
 ```
+
+For production-ready builds:
 
 Or for a production-ready (optimized) build, run a build command:
 
@@ -52,7 +64,7 @@ This will compile all packages in the `contracts` directory and output the strip
 If you hit any issues there and want to debug, you can try to run the following in each contract dir:
 `RUSTFLAGS="-C link-arg=-s" cargo build --release --target=wasm32-unknown-unknown --locked`
 
-## Ownership Spec: Proxy Contracts
+## Proxy Contracts: OWS Specification
 
 OWS is a specification for proxy contracts in Rust. It is a very simple, but flexible interface designed for
 the case where one contract is meant to hold assets (or rights) on behalf of other contracts.
@@ -80,7 +92,7 @@ contract address. It emits the following attributes:
 
 `CanExecute{sender, msg}` - This accepts one `Msg` and checks permissions, returning true or false based on the
 permissions. If `CanExecute` returns true then a call to `Execute` from that sender, with the same message, before any
-further state changes, should also succeed. This can be used to dynamically provide some client info on a generic ows
+further state state changes should also succeed. This can be used to dynamically provide some client info on a generic ows
 contract without knowing the extension details. (eg. detect if they can send coins or stake)
 
 ## Quality Control
@@ -110,7 +122,7 @@ much faster turn-around:
 `cargo tarpaulin -o html --packages cw3-fixed-multisig`
 
 Note that it will produce a code coverage report for the entire project, but only the coverage in that package is the
-real value. If does give quick feedback for you if you unit test writing was successful.
+real value. It does give quick feedback for you if you unit test writing was successful.
 
 ## Contributing
 
@@ -121,7 +133,7 @@ See our [Contributing Guidelines](CONTRIBUTING.md).
 To generate a changelog we decided to use
 [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator).
 
-To install tool you need Ruby's `gem` package manager.
+To install the tool you need Ruby's `gem` package manager.
 
   ```sh  $ gem --user install github_changelog_generator```
 
@@ -136,8 +148,7 @@ Appending next releases could be done adding `--base` flag:
   ```sh  $ github_changelog_generator -u username -p projectname --base CHANGELOG.md```
 
 If you hit GitHub's 50 requests/hour limit, please follow
-[this](https://github.com/github-changelog-generator/github-changelog-generator#github-token) guide to create a token
-key which you can pass using `--token` flag.
+[github-token](https://github.com/github-changelog-generator/github-changelog-generator#github-token) guide to create a token key which you can pass using `--token` flag.
 
-There's also a convenience `scripts/update_changelog.sh`, which can take a --since-tag parameter (to avoid processing
-the entire history). It can also auto-detect the latest version tag for you, with --latest-tag.
+There's also a convenient `scripts/update_changelog.sh`, which can take a --since-tag parameter (to avoid processing
+the entire history). It can also auto-detect the latest version tag for you, with ```sh --latest-tag```.
